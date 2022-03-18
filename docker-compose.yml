@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  app_front:
+    container_name: app_front
+    build:
+      context: ./node_front
+    ports:
+      - 80:3000
+    networks:
+      - app_stock_network
+  app_back:
+    build:
+      context: ./node_back
+    container_name: app_back
+    ports:
+      - 9001:9001
+    networks:
+      - app_stock_network
+  app_back_db:
+    image: mongo
+    container_name: app_back_db
+    volumes:
+      - .\data\:/data/db
+    expose:
+      - "27017"
+    networks:
+      - app_stock_network
+networks:
+  app_stock_network:
+    driver: bridge
+
+  
+
+
+
+
